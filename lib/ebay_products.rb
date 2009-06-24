@@ -17,7 +17,7 @@ class EbayProducts
   end
   
   def search
-    @search ||= self.class.get("/shopping", :query => {:QueryKeywords => @query, :appid => @appid})["FindProductsResponse"]["Product"]
+    @search ||= self.class.get("/shopping", :query => {:QueryKeywords => @query, :appid => @appid}, :format => :xml)["FindProductsResponse"]["Product"]
   end
   
   def products
