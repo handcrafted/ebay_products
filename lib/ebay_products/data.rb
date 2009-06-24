@@ -17,6 +17,7 @@ class EbayProducts
     private
     
     def downcase_keys(hash)
+      hash = hash.dup
       new_hash = {}
       hash.keys.each do |key|
         value = hash.delete(key)
