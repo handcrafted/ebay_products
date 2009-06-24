@@ -1,6 +1,7 @@
 require 'rubygems'
 gem 'httparty'
 require 'httparty'
+require 'activesupport'
 require File.dirname(__FILE__) + '/ebay_products/data'
 
 class EbayProducts
