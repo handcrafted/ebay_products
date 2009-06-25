@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "ebay_products"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Wrapper for eBay web services}
     gem.email = "joshua.owens@gmail.com"
     gem.homepage = "http://github.com/handcrafted/ebay_products"
     gem.authors = ["Josh Owens"]
