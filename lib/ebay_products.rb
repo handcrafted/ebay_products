@@ -10,18 +10,34 @@ class EbayProducts
   base_uri "open.api.ebay.com"
   default_params :responseencoding => 'XML', :callname => "FindProducts", :version => "619", :siteid => 0, :maxentries => 18
   
-  attr_reader :query, :appid
+  attr_reader :query, :appid, :product_id
   
-  def initialize(query, appid)
-    @query, @appid = query, appid
+  def initialize(args, appid)
+    @query = args[:keywords]
+    @product_id = args[:product_id]
+    @appid = appid
   end
   
   def search
-    @search ||= self.class.get("/shopping", :query => {:QueryKeywords => @query, :appid => @appid}, :format => :xml)["FindProductsResponse"]["Product"]
+    @search ||= self.class.get("/shopping", :query => options, :format => :xml)["FindProductsResponse"]["Product"]
   end
   
   def products
     @products ||= search.collect {|product| ProductInformation.new(product) }
   end
-  
+
+  def product
+    products.first
+  end
+
+  def options
+    hash = {:appid => @appid}
+    if @product_id
+      hash['ProductID.value'.to_sym] = @product_id
+      hash['ProductID.type'.to_sym] = 'Reference' # assumes product id is of type reference
+    else
+      hash[:QueryKeywords] = @query
+    end
+    hash
+  end
 end
