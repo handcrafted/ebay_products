@@ -19,7 +19,13 @@ class EbayProducts
   end
   
   def search
-    @search ||= self.class.get("/shopping", :query => options, :format => :xml)["FindProductsResponse"]["Product"]
+    if @search.blank?
+      @search = self.class.get("/shopping", :query => options, :format => :xml)["FindProductsResponse"]["Product"]
+      if @search.is_a? Hash
+        @search = [@search]
+      end
+    end
+    @search
   end
   
   def products
