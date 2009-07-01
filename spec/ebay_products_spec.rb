@@ -37,6 +37,17 @@ describe "EbayProducts" do
       @ebay.products.size.should == 2
     end
     
+    context "Search failure" do
+      before(:each) do
+        FakeWeb.register_uri(:get, "http://open.api.ebay.com:80/shopping?QueryKeywords=xbox&callname=FindProducts&siteid=0&maxentries=18&appid=123abc&version=619&responseencoding=XML", :body => File.read("#{File.dirname(__FILE__)}/samples/failure.xml"))
+        @ebay = EbayProducts.new({:keywords => "xbox"}, "123abc")
+      end
+      
+      it "should throw search failure" do
+        lambda { @ebay.search }.should raise_error(SearchFailure)
+      end
+
+    end
   end
   
 end

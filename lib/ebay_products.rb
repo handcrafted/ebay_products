@@ -20,7 +20,12 @@ class EbayProducts
   
   def search
     if @search.blank?
-      @search = self.class.get("/shopping", :query => options, :format => :xml)["FindProductsResponse"]["Product"]
+      response = self.class.get("/shopping", :query => options, :format => :xml)["FindProductsResponse"]
+      errors = response['Errors']
+      if errors
+        raise SearchFailure, errors['LongMessage']
+      end
+      @search = response["Product"]
       if @search.is_a? Hash
         @search = [@search]
       end
@@ -47,3 +52,5 @@ class EbayProducts
     hash
   end
 end
+
+class SearchFailure < RuntimeError; end

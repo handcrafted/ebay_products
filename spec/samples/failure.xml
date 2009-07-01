@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <FindProductsResponse xmlns="urn:ebay:apis:eBLBaseComponents">
+   <Timestamp>2009-07-01T09:18:26.109Z</Timestamp>
+   <Ack>Failure</Ack>
+   <Errors>
+    <ShortMessage>Your query would return too many items.</ShortMessage>
+    <LongMessage>Your query would return too many items. Please define a more specific query.</LongMessage>
+    <ErrorCode>10.4</ErrorCode>
+    <SeverityCode>Error</SeverityCode>
+    <ErrorClassification>RequestError</ErrorClassification>
+   </Errors>
+   <Build>e623__Bundled_9520957_R1</Build>
+   <Version>623</Version>
+  </FindProductsResponse>
+ 
